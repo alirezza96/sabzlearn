@@ -80,9 +80,8 @@ export const getMe = async (req, res) => {
         const user = await userModel.findById(payload.id).lean()
         const { first_name: firstName, last_name: lastName, username } = user
         res.json({
-            firstName, lastName, username
+            data: { firstName, lastName, username }
         })
-        res.json("welcome to register page")
     } catch (error) {
         res.status(500).json({ message: error.message || "Internal Server Error" })
     }
