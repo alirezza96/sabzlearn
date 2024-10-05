@@ -1,6 +1,8 @@
 {
   "name": "sabzlearn",
   "main": "server.js",
+  "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "start": "nodemon"
   },
