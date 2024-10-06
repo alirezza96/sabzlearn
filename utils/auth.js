@@ -26,7 +26,7 @@ export const decrypt = (password, hashedPassword) => {
 
 const privateKey = process.env.PRIVATE_KEY
 export const generateToken = (data) => {
-    return jwt.sign(data, privateKey, { expiresIn: "1h" })
+    return jwt.sign(data, privateKey, { expiresIn: "20D" })
 }
 
 export const decodeToken = (token) => {

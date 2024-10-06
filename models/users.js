@@ -1,10 +1,10 @@
 import { model, Schema } from "mongoose"
 const schema = Schema({
-    first_name: {
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
@@ -35,7 +35,7 @@ const schema = Schema({
         enum: ["admin", "user"],
         default: "user",
     },
-    is_ban: {
+    isBan: {
         type: Boolean,
         default: false
     }

@@ -23,8 +23,8 @@ export const register = async (req, res) => {
         // role
         const isAdmin = await userModel.find({}).lean().limit(1)
         user = await userModel.create({
-            first_name: firstName,
-            last_name: lastName,
+            firstName: firstName,
+            lastName: lastName,
             username,
             email,
             phone,
@@ -32,7 +32,7 @@ export const register = async (req, res) => {
             role: !isAdmin.length ? "admin" : "user"
         })
         // accessToken
-        const { _id: id, role, is_ban: isBan } = user
+        const { _id: id, role, isBan: isBan } = user
         const token = generateToken({ id, role, isBan })
         res.json({ message: "user registered", data: { firstName, lastName }, token })
     } catch (error) {
@@ -50,12 +50,12 @@ export const login = async (req, res) => {
         })
         const { username, password } = validationResult.data
         const user = await userModel.findOne({ username })
-        const { is_ban: isBan,
+        const { isBan: isBan,
             password: hashedPassword,
             _id: id,
             role,
-            first_name: firstName,
-            last_name: lastName } = user
+            firstName: firstName,
+            lastName: lastName } = user
         // user not found
         if (!user) return res.status(409).json({ message: "username or password incorrect" })
         // compare password
@@ -78,7 +78,7 @@ export const getMe = async (req, res) => {
     if (!payload) return res.status(401).json({ message: "token not valid" })
     try {
         const user = await userModel.findById(payload.id).lean()
-        const { first_name: firstName, last_name: lastName, username } = user
+        const { firstName: firstName, lastName: lastName, username } = user
         res.json({
             data: { firstName, lastName, username }
         })
