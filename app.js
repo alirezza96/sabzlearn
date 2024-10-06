@@ -9,7 +9,6 @@ import podcastRouter from "./routes/v1/podcasts.js"
 const app = express()
 // biltin
 app.use(express.json())
-app.use(express.)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", auth, userRouter)
 app.use("/api/v1/categories", categoryRouter)
