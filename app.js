@@ -1,12 +1,15 @@
 import express from 'express'
 import authRouter from "./routes/v1/auth.js"
 import userRouter from "./routes/v1/users.js"
+import categoryRouter from "./routes/v1/categories.js"
 import auth from './middlewares/auth.js'
 
 const app = express()
+
 app.use(express.json())
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", auth, userRouter)
+app.use("/api/v1/categories", categoryRouter)
 
 
 // page not found
