@@ -7,7 +7,7 @@ import storage from "../../utils/uploader.js";
 const router = Router()
 
 router.route("/")
-    .post(auth, isAdmin, multer({
+    .post( multer({
         storage, limits: {
             fileSize: 10000000000000,
 

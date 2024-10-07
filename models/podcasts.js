@@ -15,7 +15,8 @@ const schema = Schema({
     },
     shortName: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
     },
     isFree: {
         type: Boolean,
@@ -48,5 +49,5 @@ const schema = Schema({
 //     localField: "_id",
 //     foreignField: "albumId"
 // })
-const albumsModel = model("Album", schema)
-export default albumsModel
+const podcastsModel = model("Podcast", schema)
+export default podcastsModel
