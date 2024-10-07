@@ -39,3 +39,22 @@ export const create = async (req, res) => {
         data: newSession
     })
 }
+
+
+export const find = async (req, res) => {
+    const sessions = await sessionsModel.find().populate("podcastId", "title").lean()
+    res.json({ data: sessions })
+}
+
+export const findOne = async (req, res) => {
+    const { shortName, sessionId } = req.params
+    const podcast = await podcastsModel.findOne({ shortName })
+    const podcastId = podcast._id.toString()
+    const session = await sessionsModel.findOne({ _id: sessionId, podcastId })
+    const sessions = await sessionsModel.find({ podcastId })
+    res.json({
+        data: {
+            session, sessions
+        }
+    })
+}
