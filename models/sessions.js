@@ -13,14 +13,14 @@ const schema = Schema({
         type: Boolean,
         default: true
     },
-    artistId: {
+    podcastId: {
         type: Types.ObjectId,
-        ref: "Artist"
+        ref: "Podcast"
     }
 },
-{
-    timestamps: true
-})
+    {
+        timestamps: true
+    })
 
-const songsModel = model("Podcast", schema)
-export default songsModel
+const sessionsModel = model("Session", schema)
+export default sessionsModel

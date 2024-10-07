@@ -5,6 +5,7 @@ import userRouter from "./routes/v1/users.js"
 import categoryRouter from "./routes/v1/categories.js"
 import podcastRouter from "./routes/v1/podcasts.js"
 import artistRouter from "./routes/v1/artists.js"
+import sessionRouter from "./routes/v1/sessions.js"
 const app = express()
 app.use(express.json())
 app.use("/api/v1/auth", authRouter)
@@ -12,7 +13,7 @@ app.use("/api/v1/users", auth, userRouter)
 app.use("/api/v1/categories", categoryRouter)
 app.use("/api/v1/podcasts", podcastRouter)
 app.use("/api/v1/artists", artistRouter)
-
+app.use("/api/v1/sessions", sessionRouter)
 
 
 // page not found
