@@ -4,7 +4,8 @@ import isAdmin from "../../middlewares/admin.js";
 import { create } from "../../controllers/v1/podcasts.js"
 import multer from "multer";
 import storage from "../../utils/uploader.js";
-import { create as createSession, find as findSession, findOne as findOneSession } from "../../controllers/v1/sessions.js";
+import { createSession, findSession, findOneSession } from "../../controllers/v1/sessions.js";
+import { createComment } from "../../controllers/v1/comments.js"
 const router = Router()
 
 router.route("/")
@@ -14,8 +15,9 @@ router.route("/")
 
         }
     }).single("cover"), create)
-
-router.route("/:id/session")
+router.route("/:shortName/comments")
+    .post(auth, createComment)
+router.route("/:id/sessions")
     .post(auth, isAdmin, multer({ storage }).single("file"), createSession)
 
 router.route("/sessions")

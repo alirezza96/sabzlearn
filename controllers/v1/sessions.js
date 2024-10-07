@@ -3,7 +3,7 @@ import schema from "../../validators/sessions.js"
 import { titleSchema } from "../../validators/podcasts.js"
 import podcastsModel from "../../models/podcasts.js"
 
-export const create = async (req, res) => {
+export const createSession = async (req, res) => {
     const { id: podcastTitle } = req.params
 
     // 
@@ -41,12 +41,12 @@ export const create = async (req, res) => {
 }
 
 
-export const find = async (req, res) => {
+export const findSession = async (req, res) => {
     const sessions = await sessionsModel.find().populate("podcastId", "title").lean()
     res.json({ data: sessions })
 }
 
-export const findOne = async (req, res) => {
+export const findOneSession = async (req, res) => {
     const { shortName, sessionId } = req.params
     const podcast = await podcastsModel.findOne({ shortName })
     const podcastId = podcast._id.toString()

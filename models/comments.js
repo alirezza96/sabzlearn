@@ -13,7 +13,7 @@ const schema = Schema({
         type: Number,
         min: 0,
         max: 5,
-        default: 0
+        required: true
     },
     isReply: {
         type: Boolean,
@@ -23,9 +23,9 @@ const schema = Schema({
         type: Types.ObjectId,
         rel: "Comment"
     },
-    albumId: {
+    podcastId: {
         type: Types.ObjectId,
-        rel: "Album"
+        rel: "Podcast"
     },
     userId: {
         type: Types.ObjectId,
