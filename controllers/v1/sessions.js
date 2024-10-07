@@ -58,3 +58,16 @@ export const findOne = async (req, res) => {
         }
     })
 }
+
+// /:id
+// delete
+export const remove = async (req, res) => {
+    const { id } = req.params
+    const session = await sessionsModel.findByIdAndDelete(id)
+    if (!session) res.status(404).json({
+        message: "session not found"
+    })
+    res.json({
+        message: "session removed"
+    })
+}
