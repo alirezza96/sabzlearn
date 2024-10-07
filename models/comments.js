@@ -23,9 +23,9 @@ const schema = Schema({
         type: Types.ObjectId,
         rel: "Comment"
     },
-    podcastId: {
+    albumId: {
         type: Types.ObjectId,
-        rel: "Podcast"
+        rel: "Album"
     },
     userId: {
         type: Types.ObjectId,

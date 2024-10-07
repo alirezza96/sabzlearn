@@ -1,26 +1,52 @@
-import { Schema, model, Types } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 const schema = Schema({
     title: {
         type: String,
+        required: true,
+    },
+    description: {
+        type: String,
         required: true
     },
-    file: {
+    cover: {
         type: String,
-        required: true,
+        required: true
+    },
+    shortName: {
+        type: String,
+        required: true
     },
     isFree: {
         type: Boolean,
         default: true
     },
+    isRelease: {
+        type: Boolean,
+        default: true
+    },
+    categoryId: {
+        type: Types.ObjectId,
+        ref: "Category"
+    },
     artistId: {
         type: Types.ObjectId,
         ref: "Artist"
     }
-},
-{
+}, {
     timestamps: true
 })
 
-const songsModel = model("Podcast", schema)
-export default songsModel
+// schema.virtual("artists", {
+//     ref: "Artist",
+//     localField: "_id",
+//     foreignField: "artistId"
+// })
+
+// schema.virtual("comments", {
+//     ref: "Comment",
+//     localField: "_id",
+//     foreignField: "albumId"
+// })
+const albumsModel = model("Album", schema)
+export default albumsModel
