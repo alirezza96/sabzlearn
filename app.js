@@ -21,5 +21,12 @@ app.use((req, res) => {
 
 })
 
+// error handling middleware
+app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+        .json({
+            message: err.message || "Internal Server Error"
+        })
+})
 
 export default app
