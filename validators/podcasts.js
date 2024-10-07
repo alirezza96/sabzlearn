@@ -11,4 +11,5 @@ const schema = z.object({
     artistId: objectIdSchema
 }).strict()
 
-export default schema
+export const podcastsSchema = schema
+export const titleSchema = schema.pick({ title: true })
