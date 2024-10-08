@@ -4,7 +4,7 @@ import salesModel from "../../models/sales.js"
 import sessionsModel from "../../models/sessions.js"
 import { decodeToken } from "../../utils/auth.js"
 import { podcastsSchema } from "../../validators/podcasts.js"
-
+import categoriesModel from "../../models/categories.js"
 export const create = async (req, res) => {
     const body = req.body
     const validationResult = podcastsSchema.safeParse(body)
@@ -12,7 +12,10 @@ export const create = async (req, res) => {
         message: "validation failed",
         errors: validationResult.error.flatten().fieldErrors
     })
-    const { filename } = req.file
+    const filename = req.file?.filename
+    if (!filename) return res.status(401).json({
+        message: "cover required"
+    })
     // podcast exists
     const podcast = await podcastsModel.findOne({ shortName: validationResult.data.shortName })
     if (podcast) return res.status(401).json({ message: "podcast already exists" })
@@ -50,4 +53,15 @@ export const findOne = async (req, res) => {
             podcast, sessions, comments, soldCount, isUserBought
         }
     })
+}
+
+export const findRelatedPodcasts = async (req, res) => {
+    const { shortName } = req.params
+    const podcast = await podcastsModel.findOne({ shortName })
+    const categoryId = podcast.categoryId.toString()
+    const relatedPodcasts = await podcastsModel.find({
+        categoryId, _id: {$ne: podcast._id}
+    })
+    if (!relatedPodcasts.length) return res.status(404).json({ message: "related podcasts not found" })
+    res.json({ data: relatedPodcasts })
 }
