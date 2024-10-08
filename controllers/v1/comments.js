@@ -1,7 +1,12 @@
 import commentsModel from "../../models/comments.js"
 import podcastsModel from "../../models/podcasts.js"
 import { createCommentSchema } from "../../validators/comments.js"
-
+// /
+export const find = async (req, res) => {
+    const comments = await commentsModel.find().lean()
+    if (!comments.length) return res.status(404).json({ message: "comments not found" })
+    res.json({ data: comments })
+}
 export const createComment = async (req, res) => {
     const { shortName } = req.params
     const { body,
@@ -47,13 +52,13 @@ export const remove = async (req, res) => {
 }
 
 // /:id/confirmed
-export const confirmed = async (req,res) => {
-    const {id} = req.params
-    const comment = await findById(id, "isConfirmed")
-    if(!comment) return res.status(404).json({
+export const confirmed = async (req, res) => {
+    const { id } = req.params
+    const comment = await commentsModel.findById(id, "isConfirmed")
+    if (!comment) return res.status(404).json({
         message: "comment not found"
     })
-    const updateComment = await commentsModel.findByIdAndUpdate(id, {isConfirmed: !comment.isConfirmed}).select("isConfirmed")
+    const updateComment = await commentsModel.findByIdAndUpdate(id, { isConfirmed: !comment.isConfirmed }, { new: true }).select("isConfirmed")
     res.json({
         message: `isConfirmed: ${updateComment.isConfirmed}`
     })
