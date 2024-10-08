@@ -33,3 +33,15 @@ export const createComment = async (req, res) => {
     })
 
 }
+// /:id
+
+export const remove = async (req, res) => {
+    const { id } = req.params
+    const comment = await commentsModel.findByIdAndDelete(id)
+    if (!comment) return res.status(404).json({
+        message: "comment not found"
+    })
+    res.json({
+        message: "comment removed"
+    })
+}
