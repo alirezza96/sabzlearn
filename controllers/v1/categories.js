@@ -1,18 +1,24 @@
 import categoriesModel from "../../models/categories.js"
+import podcastsModel from "../../models/podcasts.js"
 import schema from "../../validators/categories.js"
 
 // /:title
 export const findByTitle = async (req, res) => {
-    const { id: title } = req.params
-    const validationResult = schema.pick({ shortName: true }).safeParse(title)
+    const { id: shortName } = req.params
+    const validationResult = schema.pick({ shortName: true }).safeParse({ shortName })
     if (!validationResult.success) return res.status(401).json({
-        message: "category not found"
+        message: "category not found 1"
     })
-    const category = await categoriesModel.findOne({ shortName: title })
+    const category = await categoriesModel.findOne({ shortName })
     if (!category) return res.status(404).json({
         message: "category not found"
     })
-    res.json({ data: category })
+    const podcasts = await podcastsModel.find({ categoryId: category._id })
+    res.json({
+        data: {
+            category, podcasts
+        }
+    })
 }
 
 export const update = async (req, res) => {
