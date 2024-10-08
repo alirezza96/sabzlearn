@@ -45,3 +45,17 @@ export const remove = async (req, res) => {
         message: "comment removed"
     })
 }
+
+// /:id/confirmed
+export const confirmed = async (req,res) => {
+    const {id} = req.params
+    const comment = await findById(id, "isConfirmed")
+    if(!comment) return res.status(404).json({
+        message: "comment not found"
+    })
+    const updateComment = await commentsModel.findByIdAndUpdate(id, {isConfirmed: !comment.isConfirmed}).select("isConfirmed")
+    res.json({
+        message: `isConfirmed: ${updateComment.isConfirmed}`
+    })
+
+}
