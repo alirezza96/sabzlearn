@@ -2,6 +2,7 @@ import commentsModel from "../../models/comments.js"
 import podcastsModel from "../../models/podcasts.js"
 import salesModel from "../../models/sales.js"
 import sessionsModel from "../../models/sessions.js"
+import { decodeToken } from "../../utils/auth.js"
 import { podcastsSchema } from "../../validators/podcasts.js"
 
 export const create = async (req, res) => {
@@ -37,14 +38,16 @@ export const findOne = async (req, res) => {
         .populate("categoryId", "title shortName")
         .populate("artistId", "title")
     const podcastId = podcast._id
-    const sessions = await sessionsModel.find({ podcastId })
-    const comments = await commentsModel.find({ podcastId, isConfirmed: true })
-    const soldCount = await salesModel.find({ podcastId }).countDocuments()
+    const sessions = await sessionsModel.find({ podcastId }).lean()
+    const comments = await commentsModel.find({ podcastId, isConfirmed: true }).lean()
+    const soldCount = await salesModel.find({ podcastId }).countDocuments().lean()
+    const token = req.header("Authorization")?.split(" ")[1]
+    const payload = decodeToken(token)
+    const userId = payload?.id
+    const isUserBought = !!(await salesModel.findOne({ userId, podcastId }))
     res.json({
         data: {
-            podcast, sessions, comments, soldCount
+            podcast, sessions, comments, soldCount, isUserBought
         }
     })
-    console.log('podcast =>', podcast)
-
 }
