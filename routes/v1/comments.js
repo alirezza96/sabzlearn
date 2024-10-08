@@ -4,7 +4,7 @@ import auth from "../../middlewares/auth.js";
 import isAdmin from "../../middlewares/admin.js";
 const router = Router()
 router.route("/")
-    .get(find)
+    .get(auth, isAdmin, find)
 router.route("/:id")
     .delete(auth, isAdmin, remove)
 router.route("/:id/confirmed")
