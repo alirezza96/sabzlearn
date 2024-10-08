@@ -1,7 +1,7 @@
 import { Router } from "express";
 import auth from "../../middlewares/auth.js";
 import isAdmin from "../../middlewares/admin.js";
-import { create, find } from "../../controllers/v1/podcasts.js"
+import { create, find, findOne } from "../../controllers/v1/podcasts.js"
 import multer from "multer";
 import storage from "../../utils/uploader.js";
 import { createSession, findSession, findOneSession } from "../../controllers/v1/sessions.js";
@@ -17,6 +17,8 @@ router.route("/")
         }
     }).single("cover"), create)
     .get(auth, isAdmin, find)
+router.route("/:shortName")
+    .get(findOne)
 router.route("/:shortName/comments")
     .post(auth, createComment)
 router.route("/:id/sessions")

@@ -38,16 +38,16 @@ const schema = Schema({
     timestamps: true
 })
 
-// schema.virtual("artists", {
-//     ref: "Artist",
-//     localField: "_id",
-//     foreignField: "artistId"
-// })
+schema.virtual("sessions", {
+    ref: "Session",
+    localField: "_id",
+    foreignField: "podcastId"
+})
 
-// schema.virtual("comments", {
-//     ref: "Comment",
-//     localField: "_id",
-//     foreignField: "albumId"
-// })
+schema.virtual("comments", {
+    ref: "Comment",
+    localField: "_id",
+    foreignField: "podcastId"
+})
 const podcastsModel = model("Podcast", schema)
 export default podcastsModel
