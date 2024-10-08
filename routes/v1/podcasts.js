@@ -28,6 +28,6 @@ router.route("/sessions")
 router.route("/:shortName/:sessionId")
     .get(findOneSession)
 
-router.route("/:id/sales")
+router.route("/:id/buy")
     .post(auth, createSale)
 export default router

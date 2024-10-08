@@ -15,7 +15,7 @@ export const createSale = async (req, res) => {
   //is soled
   const isSoled = await salesModel.findOne({ userId, podcastId })
   if (isSoled) return res.status(409).json({
-    message: "user already soled this podcast"
+    message: "you already sold this podcast"
   })
   const sale = await salesModel.create({ userId, podcastId, price })
   res.status(201).json({
