@@ -6,6 +6,7 @@ import multer from "multer";
 import storage from "../../utils/uploader.js";
 import { createSession, findSession, findOneSession } from "../../controllers/v1/sessions.js";
 import { createComment } from "../../controllers/v1/comments.js"
+import { createSale } from "../../controllers/v1/sales.js"
 const router = Router()
 
 router.route("/")
@@ -25,4 +26,7 @@ router.route("/sessions")
 
 router.route("/:shortName/:sessionId")
     .get(findOneSession)
+
+router.route("/:id/sales")
+    .post(auth,createSale)
 export default router
