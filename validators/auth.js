@@ -24,3 +24,9 @@ export const loginSchema = schema.pick({
     username: true,
     password: true
 });
+
+
+
+
+
+export const authValidator = (req) => registerSchema.safeParse(req)

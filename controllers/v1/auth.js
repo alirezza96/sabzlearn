@@ -1,16 +1,9 @@
 import userModel from "../../models/users.js"
 import { decrypt, encrypt, generateToken, decodeToken } from "../../utils/auth.js"
-import { registerSchema, loginSchema } from "../../validators/auth.js"
 
 export const register = async (req, res) => {
     try {
-        const body = req.body
-        const validationResult = registerSchema.safeParse(body)
-        if (!validationResult.success) return res.status(400).json({
-            message: "validataion failed",
-            errors: validationResult.error.flatten().fieldErrors
-        })
-        const { firstName, lastName, username, email, phone, password } = validationResult.data
+        const { firstName, lastName, username, email, phone, password } = req.body
         // check user not exists
         let user = await userModel.findOne({
             $or: [
@@ -42,13 +35,7 @@ export const register = async (req, res) => {
 }
 export const login = async (req, res) => {
     try {
-        const body = req.body
-        const validationResult = loginSchema.safeParse(body)
-        if (!validationResult.success) return res.status(422).json({
-            message: "validation failed",
-            errors: validationResult.error.flatten().fieldErrors
-        })
-        const { username, password } = validationResult.data
+        const { username, password } = req.body
         const user = await userModel.findOne({ username })
         const { isBan: isBan,
             password: hashedPassword,
