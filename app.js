@@ -9,6 +9,7 @@ import sessionRouter from "./routes/v1/sessions.js"
 import commentRouter from "./routes/v1/comments.js"
 import contactRouter from "./routes/v1/contacts.js"
 import newsletterRouter from "./routes/v1/newsletter.js"
+import searchRouter from "./routes/v1/search.js"
 const app = express()
 app.use(express.json())
 app.use("/api/v1/auth", authRouter)
@@ -20,6 +21,7 @@ app.use("/api/v1/sessions", sessionRouter)
 app.use("/api/v1/comments", commentRouter)
 app.use("/api/v1/contact", contactRouter)
 app.use("/api/v1/newsletter", newsletterRouter)
+app.use("/api/v1/search", searchRouter)
 
 // page not found
 app.use((req, res) => {
