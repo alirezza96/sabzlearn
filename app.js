@@ -7,6 +7,8 @@ import podcastRouter from "./routes/v1/podcasts.js"
 import artistRouter from "./routes/v1/artists.js"
 import sessionRouter from "./routes/v1/sessions.js"
 import commentRouter from "./routes/v1/comments.js"
+import contactRouter from "./routes/v1/contacts.js"
+import newsletterRouter from "./routes/v1/newsletter.js"
 const app = express()
 app.use(express.json())
 app.use("/api/v1/auth", authRouter)
@@ -16,7 +18,8 @@ app.use("/api/v1/podcasts", podcastRouter)
 app.use("/api/v1/artists", artistRouter)
 app.use("/api/v1/sessions", sessionRouter)
 app.use("/api/v1/comments", commentRouter)
-
+app.use("/api/v1/contact", contactRouter)
+app.use("/api/v1/newsletter", newsletterRouter)
 
 // page not found
 app.use((req, res) => {

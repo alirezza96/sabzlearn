@@ -60,8 +60,12 @@ export const findRelatedPodcasts = async (req, res) => {
     const podcast = await podcastsModel.findOne({ shortName })
     const categoryId = podcast.categoryId.toString()
     const relatedPodcasts = await podcastsModel.find({
-        categoryId, _id: {$ne: podcast._id}
+        categoryId, _id: { $ne: podcast._id }
     })
     if (!relatedPodcasts.length) return res.status(404).json({ message: "related podcasts not found" })
     res.json({ data: relatedPodcasts })
 }
+
+export const findPopularPodcasts = async (req, res) => {}
+
+export const findComingSoonProducts = async (req, res) => { }

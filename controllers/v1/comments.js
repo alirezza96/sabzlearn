@@ -3,7 +3,10 @@ import podcastsModel from "../../models/podcasts.js"
 import { createCommentSchema } from "../../validators/comments.js"
 // /
 export const find = async (req, res) => {
-    const comments = await commentsModel.find().lean()
+    const comments = await commentsModel
+        .find()
+        .populate("podcastId")
+        .lean()
     if (!comments.length) return res.status(404).json({ message: "comments not found" })
     res.json({ data: comments })
 }
